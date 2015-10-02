@@ -45,7 +45,7 @@ class Player {
 
     var shouldAllIn = false;
     pairs.forEach(function(rank) {
-      if (['10', 'J', 'D', 'K', 'A'].indexOf(rank.toUpperCase()) >= 0) {
+      if (['10', 'J', 'Q', 'K', 'A'].indexOf(rank.toUpperCase()) >= 0) {
         shouldAllIn = true;
       }
     });
