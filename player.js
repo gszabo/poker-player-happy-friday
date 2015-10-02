@@ -51,8 +51,9 @@ class Player {
         maximumBet = 50;
       }
 
+      console.log(JSON.stringify({type: 'pre-flop', timestamp: (new Date).toISOString(), game_id: this._gameState.game_id, round: this._gameState.round, small_blind: this._gameState.small_blind, stack: currentPlayer.stack, minimumBet: minimumBet, maximumBet: maximumBet}));
+
       if (minimumBet <= maximumBet) {
-        console.log(JSON.stringify({timestamp: (new Date).toISOString(), game_id: this._gameState.game_id, round: this._gameState.round, small_blind: this._gameState.small_blind, stack: currentPlayer.stack, minimumBet: minimumBet, maximumBet: maximumBet}));
         return minimumBet;
       } else {
         return 0;
@@ -80,6 +81,9 @@ class Player {
       return 5000;
     } else if (ownPairs.length > 0) {
       var betAmount = minimumBet + this._gameState.minimum_raise;
+
+      console.log(JSON.stringify({type: 'flop', timestamp: (new Date).toISOString(), game_id: this._gameState.game_id, round: this._gameState.round, stack: currentPlayer.stack, minimumBet: minimumBet, minimum_raise: this._gameState.minimum_raise, maxPairRank: maxPairRank, betAmount: betAmount }));
+
       if (maxPairRank <= 6 || (currentPlayer.stack / 2) < betAmount) {
         return 0;
       }
@@ -97,7 +101,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 3.8",
+  VERSION: "Super iPlayer Unicorn 3.9",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
