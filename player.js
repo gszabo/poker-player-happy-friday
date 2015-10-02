@@ -27,7 +27,6 @@ class Player {
     });
 
     if (this._gameState.community_cards.length === 0) {
-      if (this._gameState.small_blind * 3
       return this._gameState.current_buy_in - currentPlayer.bet;
     }
 
