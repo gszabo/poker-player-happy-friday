@@ -60,7 +60,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Pro",
+  VERSION: "Super iPlayer Unicorn",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
