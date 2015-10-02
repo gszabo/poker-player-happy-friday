@@ -3,6 +3,7 @@
 var _ = require('lodash');
 
 var findPairs = require('./src/find_pairs');
+var uniqueCards = require('./src/unique');
 
 
 class Player {
@@ -15,7 +16,7 @@ class Player {
   bet_request() {
     var currentPlayer = this._gameState.players[this._gameState.in_action];
 
-    var cards = [].concat(currentPlayer.hole_cards).concat(this._gameState.community_cards);
+    var cards = [].concat(currentPlayer.hole_cards).concat(uniqueCards(this._gameState.community_cards));
 
     var result = findPairs(cards);
 
