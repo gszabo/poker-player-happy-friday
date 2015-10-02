@@ -30,7 +30,7 @@ class Player {
     if (this._gameState.community_cards.length === 0) {
       var minimumBet = this._gameState.current_buy_in - currentPlayer.bet;
 
-      if (minimumBet <= this._gameState.small_blind * 3) {
+      if (minimumBet <= this._gameState.small_blind * 6) {
         return minimumBet;
       } else {
         return 0;
