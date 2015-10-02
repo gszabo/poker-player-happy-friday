@@ -33,7 +33,7 @@ class Player {
     }
 
     if (shouldAllIn) {
-      return 1000;
+      return 5000;
     }
     else {
       return 0;
