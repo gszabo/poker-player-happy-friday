@@ -23,10 +23,10 @@ class Player {
 
     var result = findPairs(cards);
 
-    var pairs = [];
+    var ownPairs = [];
     Object.keys(result).forEach(function (key) {
       if (result[key] > 1) {
-        pairs.push(key);
+        ownPairs.push(key);
       }
     });
 
@@ -46,9 +46,9 @@ class Player {
 
     var shouldAllIn = false;
 
-    var maxPairRank = _.max(pairs.map(rankToValue));
+    var maxPairRank = _.max(ownPairs.map(rankToValue));
 
-    if (maxPairRank >= 10) {
+    if (ownPairs.length > 1 || maxPairRank >= 10) {
       shouldAllIn = true;
     }
 
@@ -62,7 +62,7 @@ class Player {
 
     if (shouldAllIn) {
       return 5000;
-    } else if (pairs.length > 0) {
+    } else if (ownPairs.length > 0) {
       var betAmount = minimumBet + this._gameState.minimum_raise;
       if (maxPairRank <= 6 && currentPlayer.stack < betAmount / 2) {
         return 0;
