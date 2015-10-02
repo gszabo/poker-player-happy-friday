@@ -31,6 +31,13 @@ class Player {
       }
     });
 
+    var ownDrills = [];
+    Object.keys(result).forEach(function (key) {
+      if (result[key] > 2) {
+        ownDrills.push(key);
+      }
+    });
+
     var maxPairRank = _.max(ownPairs.map(rankToValue));
 
     if (this._gameState.community_cards.length === 0) {
@@ -53,6 +60,11 @@ class Player {
     }
 
     if (ownPairs.length > 1 || maxPairRank >= 10) {
+      shouldAllIn = true;
+    }
+
+
+    if (ownDrills.length) {
       shouldAllIn = true;
     }
 
@@ -85,7 +97,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 3.7",
+  VERSION: "Super iPlayer Unicorn 3.8",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
