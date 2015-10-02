@@ -17,7 +17,7 @@ class Player {
     var currentPlayer = this._gameState.players[this._gameState.in_action];
 
     var cards = [].concat(currentPlayer.hole_cards).concat(uniqueCards(this._gameState.community_cards));
-    
+
     var minimumBet = this._gameState.current_buy_in - currentPlayer.bet;
 
     var result = findPairs(cards);
@@ -30,10 +30,10 @@ class Player {
     });
 
     if (this._gameState.community_cards.length === 0) {
-      var maximumBet = this._gameState.small_blind * 6;
+      var maximumBet = Math.min(this._gameState.small_blind * 6, currentPlayer.stack * 0.1);
 
       if (currentPlayer.stack < 500) {
-        maximumBet = 100;
+        maximumBet = 50;
       }
 
       if (minimumBet <= maximumBet) {
@@ -66,7 +66,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 2.2",
+  VERSION: "Super iPlayer Unicorn 2.3",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
