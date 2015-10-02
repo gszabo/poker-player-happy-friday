@@ -68,7 +68,7 @@ class Player {
       return 5000;
     } else if (ownPairs.length > 0) {
       var betAmount = minimumBet + this._gameState.minimum_raise;
-      if (maxPairRank <= 6 && currentPlayer.stack < betAmount / 2) {
+      if (maxPairRank <= 6 && (currentPlayer.stack / 2) < betAmount) {
         return 0;
       }
 
