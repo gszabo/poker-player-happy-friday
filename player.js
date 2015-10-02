@@ -33,7 +33,7 @@ class Player {
       var maximumBet = this._gameState.small_blind * 6;
 
       if (currentPlayer.stack < 500) {
-        maximumBet = this._gameState.small_blind * 3;
+        maximumBet = 100;
       }
 
       if (minimumBet <= maximumBet) {
@@ -66,7 +66,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 2",
+  VERSION: "Super iPlayer Unicorn 2.2",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
