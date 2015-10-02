@@ -68,7 +68,7 @@ class Player {
       return 5000;
     } else if (ownPairs.length > 0) {
       var betAmount = minimumBet + this._gameState.minimum_raise;
-      if (maxPairRank <= 6 && (currentPlayer.stack / 2) < betAmount) {
+      if (maxPairRank <= 6 || (currentPlayer.stack / 2) < betAmount) {
         return 0;
       }
 
@@ -85,7 +85,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 3.5",
+  VERSION: "Super iPlayer Unicorn 3.6",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
