@@ -2,7 +2,7 @@
 
 class Player {
   constructor() {
-    this.VERSION = "iPlayer 2.1";
+    this.VERSION = "iPlayer 2.2";
   }
 
   bet_request(game_state) {
