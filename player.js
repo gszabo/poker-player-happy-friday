@@ -38,6 +38,7 @@ class Player {
       }
 
       if (minimumBet <= maximumBet) {
+        console.log('PREFLOP LOG: game_id: ' + this._gameState.game_id + ', round: ' + this._gameState.round + ', smapp_blind: ' + this._gameState.small_blind + ', stack: ' + currentPlayer.stack);
         return minimumBet;
       } else {
         return 0;
@@ -81,7 +82,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 3.0",
+  VERSION: "Super iPlayer Unicorn 3.1",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
