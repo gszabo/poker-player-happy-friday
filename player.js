@@ -1,4 +1,5 @@
 'use strict';
+var findPairs = require('./src/find_pairs');
 
 _ = require('lodash');
 
@@ -14,16 +15,7 @@ class Player {
 
     var cards = [].concat(currentPlayer.hole_cards).concat(this._gameState.community_cards);
 
-    var result = cards.reduce(function (previousValue, currentValue) {
-      if (previousValue[currentValue.rank]) {
-        previousValue[currentValue.rank]++;
-      }
-      else {
-        previousValue[currentValue.rank] = 1;
-      }
-
-      return previousValue;
-    }, {});
+    var result = findPairs(cards);
 
     var shouldAllIn = false;
     Object.keys(result).forEach(function (key) {
