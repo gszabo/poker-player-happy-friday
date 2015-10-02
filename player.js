@@ -4,6 +4,7 @@ var _ = require('lodash');
 
 var findPairs = require('./src/find_pairs');
 var uniqueCards = require('./src/unique');
+var rankToValue = require('./src/rank_to_value');
 
 
 class Player {
@@ -44,16 +45,30 @@ class Player {
     }
 
     var shouldAllIn = false;
-    pairs.forEach(function(rank) {
-      if (['10', 'J', 'Q', 'K', 'A'].indexOf(rank.toUpperCase()) >= 0) {
-        shouldAllIn = true;
-      }
-    });
+
+    var maxPairRank = _.max(pairs.map(rankToValue));
+
+    if (maxPairRank >= 10) {
+      shouldAllIn = true;
+    }
+
+    //
+    //
+    //pairs.forEach(function(rank) {
+    //  if (['10', 'J', 'Q', 'K', 'A'].indexOf(rank.toUpperCase()) >= 0) {
+    //    shouldAllIn = true;
+    //  }
+    //});
 
     if (shouldAllIn) {
       return 5000;
     } else if (pairs.length > 0) {
-      return minimumBet + this._gameState.minimum_raise;
+      var betAmount = minimumBet + this._gameState.minimum_raise;
+      if (maxPairRank <= 6 && currentPlayer.stack < betAmount / 2) {
+        return 0;
+      }
+
+      return betAmount;
     }
     else {
       return 0;
@@ -66,7 +81,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 2.3",
+  VERSION: "Super iPlayer Unicorn 3.0",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
