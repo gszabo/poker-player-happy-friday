@@ -2,7 +2,7 @@
 
 class Player {
   constructor(game_state) {
-    this.VERSION = "iPlayer 2.3";
+    this.VERSION = "iPlayer 2.4";
     this._gameState = game_state;
 
   }
@@ -34,6 +34,7 @@ class Player {
       return this._gameState.current_buy_in - currentPlayer.bet;
     }
 
+
     if (shouldAllIn) {
       return 5000;
     }
@@ -49,7 +50,7 @@ class Player {
 
 module.exports = {
   bet_request(game_state) {
-      new Player(game_state).bet_request();
+      return new Player(game_state).bet_request();
   },
 
   showdown(game_state) {
