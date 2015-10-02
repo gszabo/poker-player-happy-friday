@@ -1,9 +1,11 @@
+'use strict';
 
-module.exports = {
+class Player {
+  constructor() {
+    this.VERSION = "iPlayer 2.1";
+  }
 
-  VERSION: "iPlayer 2.0",
-
-  bet_request: function(game_state) {
+  bet_request(game_state) {
     var currentPlayer = game_state.players[game_state.in_action];
 
     var cards = [].concat(currentPlayer.hole_cards).concat(game_state.community_cards);
@@ -26,15 +28,22 @@ module.exports = {
       }
     });
 
+    if (game_state.community_cards.length === 0) {
+      return game_state.current_buy_in - currentPlayer.bet;
+    }
+
     if (shouldAllIn) {
       return 1000;
     }
     else {
       return 0;
     }
-  },
+  }
 
-  showdown: function(game_state) {
+  showdown(game_state) {
 
   }
-};
+
+}
+
+module.exports = new Player();
