@@ -17,19 +17,19 @@ class Player {
     var currentPlayer = this._gameState.players[this._gameState.in_action];
 
     var cards = [].concat(currentPlayer.hole_cards).concat(uniqueCards(this._gameState.community_cards));
+    
+    var minimumBet = this._gameState.current_buy_in - currentPlayer.bet;
 
     var result = findPairs(cards);
 
-    var shouldAllIn = false;
+    var pairs = [];
     Object.keys(result).forEach(function (key) {
       if (result[key] > 1) {
-        shouldAllIn = 1;
+        pairs.push(key);
       }
     });
 
     if (this._gameState.community_cards.length === 0) {
-      var minimumBet = this._gameState.current_buy_in - currentPlayer.bet;
-
       if (minimumBet <= this._gameState.small_blind * 6) {
         return minimumBet;
       } else {
@@ -37,9 +37,17 @@ class Player {
       }
     }
 
+    var shouldAllIn = false;
+    pairs.forEach(function(rank) {
+      if (['10', 'J', 'D', 'K', 'A'].indexOf(rank.toUpperCase()) >= 0) {
+        shouldAllIn = true;
+      }
+    });
 
     if (shouldAllIn) {
       return 5000;
+    } else if (pairs.length > 0) {
+      return minimumBet + this._gameState.minimum_raise;
     }
     else {
       return 0;
