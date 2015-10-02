@@ -45,7 +45,7 @@ class Player {
         return 5000;
       }
 
-      var maximumBet = Math.min(this._gameState.small_blind * 6, currentPlayer.stack * 0.1);
+      var maximumBet = Math.min(this._gameState.small_blind * 6, currentPlayer.stack * 0.05);
 
       if (currentPlayer.stack < 500) {
         maximumBet = 50;
@@ -54,7 +54,11 @@ class Player {
       console.log(JSON.stringify({type: 'pre-flop', timestamp: (new Date).toISOString(), game_id: this._gameState.game_id, round: this._gameState.round, small_blind: this._gameState.small_blind, stack: currentPlayer.stack, minimumBet: minimumBet, maximumBet: maximumBet}));
 
       if (minimumBet <= maximumBet) {
-        return minimumBet;
+        if (this._gameState.round > 8) {
+          return 0
+        } else {
+          return Math.round(minimumBet);
+        }
       } else {
         return 0;
       }
@@ -101,7 +105,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 3.9",
+  VERSION: "Super iPlayer Unicorn 4.0",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
