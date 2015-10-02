@@ -1,14 +1,16 @@
 'use strict';
 
 class Player {
-  constructor() {
-    this.VERSION = "iPlayer 2.2";
+  constructor(game_state) {
+    this.VERSION = "iPlayer 2.3";
+    this._gameState = game_state;
+
   }
 
-  bet_request(game_state) {
-    var currentPlayer = game_state.players[game_state.in_action];
+  bet_request() {
+    var currentPlayer = this._gameState.players[this._gameState.in_action];
 
-    var cards = [].concat(currentPlayer.hole_cards).concat(game_state.community_cards);
+    var cards = [].concat(currentPlayer.hole_cards).concat(this._gameState.community_cards);
 
     var result = cards.reduce(function (previousValue, currentValue) {
       if (previousValue[currentValue.rank]) {
@@ -28,8 +30,8 @@ class Player {
       }
     });
 
-    if (game_state.community_cards.length === 0) {
-      return game_state.current_buy_in - currentPlayer.bet;
+    if (this._gameState.community_cards.length === 0) {
+      return this._gameState.current_buy_in - currentPlayer.bet;
     }
 
     if (shouldAllIn) {
@@ -40,10 +42,18 @@ class Player {
     }
   }
 
-  showdown(game_state) {
-
+  showdown() {
   }
 
 }
 
-module.exports = new Player();
+module.exports = {
+  bet_request(game_state) {
+      new Player(game_state).bet_request();
+  },
+
+  showdown(game_state) {
+
+  }
+
+};
