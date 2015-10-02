@@ -1,7 +1,9 @@
 'use strict';
+
+var _ = require('lodash');
+
 var findPairs = require('./src/find_pairs');
 
-_ = require('lodash');
 
 class Player {
   constructor(game_state) {
@@ -25,6 +27,7 @@ class Player {
     });
 
     if (this._gameState.community_cards.length === 0) {
+      if (this._gameState.small_blind * 3
       return this._gameState.current_buy_in - currentPlayer.bet;
     }
 
