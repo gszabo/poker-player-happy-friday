@@ -22,6 +22,7 @@ class Player {
     var minimumBet = this._gameState.current_buy_in - currentPlayer.bet;
 
     var result = findPairs(cards);
+    var shouldAllIn = false;
 
     var ownPairs = [];
     Object.keys(result).forEach(function (key) {
@@ -30,7 +31,13 @@ class Player {
       }
     });
 
+    var maxPairRank = _.max(ownPairs.map(rankToValue));
+
     if (this._gameState.community_cards.length === 0) {
+      if (maxPairRank >= 10) {
+        return 5000;
+      }
+
       var maximumBet = Math.min(this._gameState.small_blind * 6, currentPlayer.stack * 0.1);
 
       if (currentPlayer.stack < 500) {
@@ -44,10 +51,6 @@ class Player {
         return 0;
       }
     }
-
-    var shouldAllIn = false;
-
-    var maxPairRank = _.max(ownPairs.map(rankToValue));
 
     if (ownPairs.length > 1 || maxPairRank >= 10) {
       shouldAllIn = true;
