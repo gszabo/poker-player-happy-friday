@@ -30,7 +30,13 @@ class Player {
     });
 
     if (this._gameState.community_cards.length === 0) {
-      if (minimumBet <= this._gameState.small_blind * 6) {
+      var maximumBet = this._gameState.small_blind * 6;
+
+      if (currentPlayer.stack < 500) {
+        maximumBet = this._gameState.small_blind * 3;
+      }
+
+      if (minimumBet <= maximumBet) {
         return minimumBet;
       } else {
         return 0;
@@ -60,7 +66,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn",
+  VERSION: "Super iPlayer Unicorn 2",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
