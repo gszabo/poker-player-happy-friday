@@ -55,7 +55,7 @@ class Player {
 
       if (minimumBet <= maximumBet) {
         if (this._gameState.round > 8) {
-          return 0
+          return 0;
         } else {
           return Math.round(minimumBet);
         }
@@ -92,7 +92,7 @@ class Player {
         return 0;
       }
 
-      return betAmount;
+      return Math.round(betAmount);
     }
     else {
       return 0;
@@ -105,7 +105,7 @@ class Player {
 }
 
 module.exports = {
-  VERSION: "Super iPlayer Unicorn 4.0",
+  VERSION: "Super iPlayer Unicorn 4.1",
 
   bet_request(game_state) {
       return new Player(game_state).bet_request();
