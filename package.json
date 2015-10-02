@@ -4,7 +4,8 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "express": "3.x"
+    "express": "3.x",
+    "lodash": "3.10.1"
   },
   "engines": {
     "node": "4.1.1"

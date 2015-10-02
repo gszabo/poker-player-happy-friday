@@ -1,5 +1,7 @@
 'use strict';
 
+_ = require('lodash');
+
 class Player {
   constructor(game_state) {
     this.VERSION = "iPlayer 2.4";
